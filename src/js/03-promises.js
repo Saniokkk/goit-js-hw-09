@@ -14,17 +14,20 @@ function onFormSubmit(event) {
 
   for (let position = 1; position <= valueAmount; position += 1) {
     createPromise(position, valueDelay)
-      .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-      });
+      .then(success)
+      .catch(fail);
     valueDelay += valueStep;
   }
   refFormData.reset();
 } 
 
+function success ({ position, delay }) {
+  Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+}
+
+function fail({ position, delay }){
+  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+}
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
