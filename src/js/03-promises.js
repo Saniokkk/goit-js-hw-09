@@ -15,7 +15,7 @@ function onFormSubmit(event) {
   for (let position = 1; position <= valueAmount; position += 1) {
     createPromise(position, valueDelay)
       .then(success)
-      .catch(fail);
+      .catch(failure);
     valueDelay += valueStep;
   }
   refFormData.reset();
@@ -25,7 +25,7 @@ function success ({ position, delay }) {
   Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
 }
 
-function fail({ position, delay }){
+function failure({ position, delay }){
   Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
 }
 
