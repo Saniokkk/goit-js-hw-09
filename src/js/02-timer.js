@@ -32,12 +32,16 @@ const options = {
         refBtnStart.setAttribute("disabled", true);
         intervalId = setInterval(() => {
           const { days, hours, minutes, seconds } = convertMs(selectedDates[0] - Date.now());
-
+          if (days <= 0 && hours <= 0 && minutes <= 0 && seconds < 0) {
+            Notify.success('Time is over');
+            clearTimeout(intervalId);
+            return;
+          }
           refValueDaysTimer.textContent = addLeadingZero(days);
           refValueHoursTimer.textContent = addLeadingZero(hours);
           refValueMinutesTimer.textContent = addLeadingZero(minutes);
           refValueSecondsTimer.textContent = addLeadingZero(seconds);
-
+          
         }, 1000)
         
       }
